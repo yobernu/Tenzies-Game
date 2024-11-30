@@ -1,0 +1,48 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #0B2434;
+  padding: 20px;
+}
+main {
+  background-color: #F5F5F5;
+  height: 600px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.title {
+  font-size: 48px;
+  margin: 20px;
+}
+
+.instruction {
+  font-size: 20px;
+}
+.dice-container {
+  display: grid;
+  grid-template: auto auto / repeat(5, 0.1fr);
+  gap: 20px;
+}
+
+.roll-dice {
+  height: 50px;
+  width: 100px;
+  border: none;
+  border-radius: 6px;
+  background-color: #3f5a6b;
+  color: white;
+  cursor: pointer;
+}
+.roll-dice:focus {
+  outline: none;
+}
+.roll-dice:active {
+  box-shadow: inset 5px 5px 10px -3px rgba(0,0,0,0.7);
+}

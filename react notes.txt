@@ -1,0 +1,400 @@
+		NOTES ON REACT
+
+
+steps to run vite react:
+	1. npm create vite@latest
+	2. ✔ Project name: … my-vite-react-app
+	3. cd my-vite-react-app
+	4. npm i
+	5. npm run dev
+
+
+
+
+remaining ideas for my portfolio website
+	1.State Management { Use React Context API or Redux };
+	2. Routing
+	3. Forms and libraries { Formik or React Hook Form.}
+		🍕Connect the form to a backend or a service (e.g., EmailJS) for email handling.
+	4. Backend Integration { API Setup, Data Fetching: Use fetch or libraries like Axios }
+	5. Testing Unit Testing: Test components using Jest or React Testing Library.
+		🍕Integration Testing: Test the flow between components and data-fetching logic.
+	6. Optimization: performance {ImageOptim or TinyPNG} Code Splitting, SEO - {React Helmet }
+	7. Version Control and CI/CD: 
+		🍕Configure Continuous Integration/Continuous Deployment (CI/CD) pipelines using GitHub Actions, Netlify, or Vercel.
+	8. Choose a deployment platform
+	9. Monitor and Maintain {Error reporting, Analytics}
+
+
+
+
+extensions:
+	auto import
+	glean
+
+const h1 = document.createElement("h1")
+h1.textContent = "This is the text content of h1"
+h1.className = "header"
+document.getElementById("root").append(h1)
+
+
+
+
+
+function App() {
+	const date = new Date();
+	return (
+		<h>current time is {date.getHours() % 12} </h>
+	)
+}
+	result =>>>> which will display current time in pm or am
+
+
+
+		Hooks
+1. useState()
+
+To change the value of a button :
+
+import React from 'react'
+import './../styles/addItem.css'
+function AddItem() {
+
+    const  [things, setThings] = React.useState(["Thing 1", "Thing 2"])
+    function addItem() {
+        const newThingText = `Thing ${things.length + 1}`
+        setThings(prevState => [...prevState, newThingText])
+    }
+
+    const thingsElements = things.map(thing => <p key={thing}>{thing}</p>)
+
+  return (
+    <div className='add-item'>
+        <div className="button-element">
+            <button className ="add-button" onClick={addItem}>Add Item</button>
+        </div>
+        <div className="things-element">
+            {thingsElements}
+        </div>
+    </div>
+  )
+}
+
+export default AddItem;
+
+
+
+
+// Another way for increment or decrement counting
+import React, {useState} from 'react'
+import './../styles/addItem.css'
+
+function AddItem() {
+
+  const [count, setCount] = useState(9);
+  
+  function handleClickPlus() {
+    setCount(function(prevCount){
+      return prevCount + 1;
+    });
+  }
+  
+
+  function handleClickMinus() {
+    setCount(function(prevCount) {
+      return prevCount - 1;
+    });
+  }
+  
+
+
+  return (
+    <div className='counter'>
+        <button className='counter-minus' onClick={handleClickMinus}>-</button>
+        <div className='counter-count'>
+            <h1>{count}</h1>
+        </div>
+        <button className='counter-plus' onClick={handleClickPlus}>+</button>
+    </div>
+  )
+}
+
+export default AddItem;
+
+
+
+
+// Number Increment function 
+import React from 'react'
+import { useState } from 'react';
+function AddItem() {
+    
+    const [count, setCount] = useState(0);
+
+    return (
+        <div>
+            <p>Current count: {count}</p>
+            <button onClick={() => setCount(count + 1)}>Increment</button>
+        </div>
+    );
+}
+    
+
+
+export default AddItem;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+To display our props content with condition: 
+we have two possible ways:
+we add setup props on the props of app.jsx and write the below codes on the component,
+This will display if we have file/text/sth on the setup
+ 1.	{props.setup && <h3>Setup: {props.setup}</h3> }
+ 2.	<p style={{display: props.setup ? "block" : "none"}}>Setup: {props.setup}</p>
+
+
+
+
+
+Add image directory using props:
+
+props.img = image.png -- > Given name on the props
+we need to add whole path in our component.jsx
+
+src={`../images/${props.img}`}
+
+
+
+
+// To create random numbers in the range of x: 
+
+
+const randomNum = Math.floor(Math.random() * x);
+
+
+
+
+
+//to access the list above and add new items we use: 
+	
+	const [thingsArr, setThingsArr] = React.useState(["thing 1", "thing 2"]);
+
+	const newItem = "new";
+	setThingsArr(prevItem => {
+		return [...prevItem, `{newItem} ${prevItem.length + 1()`}
+}) 
+
+
+
+
+
+// Number of unread messages
+
+function Conditional(props) {
+
+    const [message, setMessage] = React.useState([])
+  return (
+    <div className='conditional' style={{padding: "200px", fontSize: "24px"}}>
+        {message.length == 0 ? <p>You're all caught up!</p> : <p>You have {message.length} unread message{"" ? message.length = 1 : "s"}</p>}
+
+
+    </div>
+  )
+}
+
+export default Conditional;
+
+
+
+
+
+// React form input for sign-up page 
+
+import React from 'react';
+import './../style/challenge1.css';
+
+function Challenge1() {
+    const [state, setState] = React.useState({
+        email: '',
+        createPassword: '',
+        confirmPassword: '',
+        isChecked: false,
+        message: ''
+    });
+
+    function handleChange(event) {
+        const { name, value, type, checked } = event.target;
+        
+        setState(prevState => ({
+            ...prevState,
+            [name]: type === 'checkbox' ? checked : value
+        }));
+    }
+
+    function handleClick(event) {
+        event.preventDefault(); // Prevent form submission
+        if (state.createPassword === state.confirmPassword) {
+            console.log("Matched");
+            if (state.isChecked) {
+                setState(prevState => ({
+                    ...prevState,
+                    message: "You have successfully registered for the newsletter"
+                }));
+            } else {
+                setState(prevState => ({
+                    ...prevState,
+                    message: "Passwords matched, but you did not subscribe to the newsletter"
+                }));
+            }
+        } else {
+            console.log("Passwords do not match");
+            setState(prevState => ({
+                ...prevState,
+                message: "Passwords do not match"
+            }));
+        }
+    }
+
+    return (
+        <div className='challenge1'>
+            <form>
+                <input 
+                    type='email'
+                    name='email'
+                    value={state.email}
+                    onChange={handleChange}
+                    placeholder='Email'
+                />
+                <br />
+                <input 
+                    type='password'
+                    name='createPassword'
+                    value={state.createPassword}
+                    onChange={handleChange}
+                    placeholder='Create password'
+                />
+                <br />
+                <input 
+                    type='password'
+                    name='confirmPassword'
+                    value={state.confirmPassword}
+                    onChange={handleChange}
+                    placeholder='Confirm password'
+                />
+                <br />
+                <input
+                    type='checkbox'
+                    name='isChecked'
+                    checked={state.isChecked}
+                    onChange={handleChange}
+                />
+                <label htmlFor='isChecked'> I want to join the newsletter</label>
+                <br />
+                <button 
+                    className='sign-up' 
+                    onClick={handleClick}
+                >
+                    Sign-up
+                </button>
+            </form>
+            
+            {/* Conditionally render the message */}
+            {state.message && <p>{state.message}</p>}
+        </div>
+    );
+}
+
+export default Challenge1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Adding new Things when clicking our button 
+
+import React from 'react';
+
+function AddItem() {
+    const [thingsArray, setThingsArray] = React.useState(['thing 1', 'thing 2']);
+
+    // Function to add a new item to the array
+    const addItem = () => {
+        setThingsArray(prevItems => [...prevItems, `thing ${prevItems.length + 1}`]);
+    };
+
+    const thingsElements = thingsArray.map(thing => <p key={thing}>{thing}</p>);
+
+    return (
+        <div>
+            <button onClick={addItem}>Add Item</button>
+            {thingsElements}
+        </div>
+    );
+}
+
+export default AddItem;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// GitHub repository initiation and push
+
+on terminal of the package folder
+	1. git init
+	2. git add .
+	3. git commit -am "commit name"
+	4. git remote add origin link   ex (https://github.com/yobernu/My-Portfolio.git)
+	5. git push origin master
